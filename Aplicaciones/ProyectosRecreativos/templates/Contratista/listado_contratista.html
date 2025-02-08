@@ -1,0 +1,73 @@
+{% extends "plantilla.html" %}
+
+{% block contenido %}
+<div class="back_re">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title">
+                <h2>Listado de Contratistas </h2>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'agregarContratista' %}" class="btn btn-primary">Agregar Contratista</a>
+    </div>
+
+    <table class="table table-striped text-center"  id="tabla-contratista">
+        <thead>
+            <tr>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Nombre de la Empresa</th>
+                <th class="text-center">Foto</th>
+                <th class="text-center">Teléfono</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contratista in contratista %}
+            <tr>
+                <td>{{ contratista.nombre }}</td>
+                <td>{{ contratista.empresa }}</td>
+                <td>
+                    {% if contratista.foto %}
+                        <img src="{{ contratista.foto.url }}" alt="Foto de {{ contratista.foto }}" style="max-width: 100px; height: auto;">
+                    {% else %}
+                        Sin Foto
+                    {% endif %}
+                </td>
+                <td>{{ contratista.telefono }}</td>
+                <td>{{ contratista.email }}</td>
+                <td>
+                    <a href="{% url 'editar_contratista' contratista.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminarContratista' contratista.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar a este contratista?');">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No hay contratistas registrados.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        // Inicializar solo una vez el DataTable
+        $('#tabla-contratista').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
+
+{% endblock %}

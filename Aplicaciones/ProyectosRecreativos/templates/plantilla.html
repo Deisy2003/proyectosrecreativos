@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <title>Proyectos Recreativos</title>
+        {% load static %}
+
+
+        <link rel="stylesheet" href="{% static 'plantilla/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plantilla/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'plantilla/css/responsive.css' %}">
+        <link rel="icon" href="{% static 'plantilla/images/fevicon.png" type="image/gif' %}" />
+        <link rel="stylesheet" href="{% static 'plantilla/css/jquery.mCustomScrollbar.min.css' %}">
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
+        
+
+                
+
+        <!-- DATATABLE -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/iziToast.css' %}">
+        <script src="{% static 'js/iziToast.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <link href="{% static 'DataTables/datatables.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+        <script src="{% static 'DataTables/datatables.min.js' %}"></script>
+         
+        <!-- validacion -->
+        <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'js/jquery.validate.js' %}"></script>
+        
+
+        <!-- FILE IMPUT-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js" integrity="sha512-0wQvB58Ha5coWmcgtg4f11CTSSxfrfLClUp9Vy0qhzYzCZDSnoB4Vhu5JXJFs7rU24LE6JsH+6hpP7vQ22lk5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/css/fileinput.min.css" integrity="sha512-yDVMONIXJPPAoULZ92Ygngsn8ZUGB4ejm6fCc6q9ZvdH8blFAOgg75XZSEaAJ5m4E/yPI1BAi5fF2axMHVuZ5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.1/js/locales/es.min.js"></script>
+            
+
+
+    
+    </head>
+    <body>
+
+         <!-- header -->
+         <header>
+            <!-- header inner -->
+            <div class="header">
+               <div class="container-fluid">
+                  <div class="row">
+                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                           <div class="center-desk">
+                              <div class="logo">
+                                 <a href="/"><img src="{% static 'plantilla/images/logo.webp' %}"  width="100px" alt="#" /></a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-7 col-lg-7 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="navbar-toggler-icon"></span>
+                           </button>
+                           <div class="collapse navbar-collapse" id="navbarsExample04">
+                              <ul class="navbar-nav mr-auto">
+
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/">Inicio </a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'listado_cliente' %}"> Cliente</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'listado_contratista' %}"> Contratista </a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'listado_parques' %}"> Parques </a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'listado_proyectos' %}">Proyectos</a>
+                                  </li>
+
+            
+                              </ul>
+                           </div>
+                        </nav>
+                     </div>
+                     <div class="col-md-2">
+                        <ul class="social_icon">
+                           <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </header>
+
+        {% block contenido %}
+        {% endblock %}
+
+   
+
+        </br></br></br>
+
+         
+
+    <!--  footer -->
+    <footer>
+        <div class="footer">
+           <div class="container">
+              <div class="row">
+                 <div class="col-md-8">
+                    <ul class="conta">
+                       <li><i class="fa fa-map-marker" aria-hidden="true"></i> Latacunga</li>
+                       <li><i class="fa fa-phone" aria-hidden="true"></i>+593 0967567656</li>
+                       <li> <i class="fa fa-envelope" ></i><a> proyectos@gmail.com</a></li>
+                    </ul>
+                 </div>
+        
+                 <div class="col-sm-4">
+                    <h3>Suscribete</h3>
+                    <form class="bottom_form">
+                       <a class="right_btn" href="Javascript:void(0)"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                       <input class="enter" placeholder="Escriba su email" type="text" name="Enter your email">
+                    </form>
+                 </div>
+              </div>
+           </div>
+
+        </div>
+     </footer>
+
+
+
+
+
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+        
+        {%if messages %}
+            {% for mensajeConfirmacion in messages %}
+                <script> 
+                    if ("{{mensajeConfirmacion.tags}}"=="success"){
+                        //alert(":) - {{mensajeConfirmacion}}");
+                        iziToast.success({
+                            title: 'CONFIRMACION',
+                            message: '{{mensajeConfirmacion}}',
+                            position: 'topRight'
+                        });
+                    }
+                </script>
+            {%endfor%}
+        {%endif%}
+
+    <script>
+        jQuery.validator.addMethod("letras", function(value, element) {            
+            return this.optional(element) || /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]*$/.test(value);
+               
+            }, "Este campo solo acepta letras"); 
+    </script>
+    
+
+    
+    </body>
+
+</html>

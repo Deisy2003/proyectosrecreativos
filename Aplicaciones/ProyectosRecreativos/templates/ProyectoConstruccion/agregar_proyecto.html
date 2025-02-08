@@ -1,0 +1,145 @@
+{% extends "plantilla.html" %}
+
+{% block contenido %}
+<div class="back_re">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title">
+                <h2>Agregar Proyectos de Construcción </h2>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="form-proyecto" action="{% url 'guardar_proyecto' %}" method="POST" class="p-4 border rounded bg-light">
+                {% csrf_token %}
+
+                <!-- Parque -->
+                <div class="mb-3">
+                    <label for="parque" class="form-label"><b>Parque:</b></label>
+                    <select class="form-control" id="parque" name="parque" required>
+                        <option value="" disabled selected>Seleccione un parque</option>
+                        {% for parque in parques %}
+                            <option value="{{ parque.id }}">{{ parque.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Contratista -->
+                <div class="mb-3">
+                    <label for="contratista" class="form-label"><b>Contratista:</b></label>
+                    <select class="form-control" id="contratista" name="contratista" required>
+                        <option value="" disabled selected>Seleccione un contratista</option>
+                        {% for contratista in contratistas %}
+                            <option value="{{ contratista.id }}">{{ contratista.nombre }} - {{ contratista.empresa }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+
+                <!-- Fecha de Inicio -->
+                <div class="mb-3">
+                    <label for="fecha_inicio" class="form-label"><b>Fecha de Inicio:</b></label>
+                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                </div>
+
+                <!-- Fecha de Fin -->
+                <div class="mb-3">
+                    <label for="fecha_fin" class="form-label"><b>Fecha de Fin:</b></label>
+                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin">
+                </div>
+
+                <!-- Presupuesto -->
+                <div class="mb-3">
+                    <label for="presupuesto" class="form-label"><b>Presupuesto:</b></label>
+                    <input type="number" class="form-control" id="presupuesto" name="presupuesto" required>
+                </div>
+
+                <!-- Estado -->
+                <div class="mb-3">
+                    <label for="estado" class="form-label"><b>Estado:</b></label>
+                    <select class="form-control" id="estado" name="estado" required>
+                        <option value="" disabled selected>Seleccione un estado</option>
+                        <option value="En Planificación">En Planificación</option>
+                        <option value="En Construcción">En Construcción</option>
+                        <option value="Finalizado">Finalizado</option>
+                    </select>
+                </div>
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success btn-lg mx-2">Guardar</button>
+                    <button type="button" class="btn btn-danger btn-lg mx-2" onclick="window.location.href='{% url 'listado_proyectos' %}'">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#form-proyecto").validate({
+            rules: {
+                parque: {
+                    required: true
+                },
+                contratista: {
+                    required: true
+                },
+                fecha_inicio: {
+                    required: true
+                },
+                fecha_fin: {
+                    required: false,
+                    greaterThan: "#fecha_inicio"
+                },
+                presupuesto: {
+                    required: true,
+                    min: 1
+                },
+                estado: {
+                    required: true
+                }
+            },
+            messages: {
+                parque: {
+                    required: "Por favor, seleccione un parque."
+                },
+                contratista: {
+                    required: "Por favor, seleccione un contratista."
+                },
+                fecha_inicio: {
+                    required: "Por favor, seleccione la fecha de inicio."
+                },
+                fecha_fin: {
+                    greaterThan: "La fecha de fin debe ser posterior a la fecha de inicio."
+                },
+                presupuesto: {
+                    required: "Por favor, ingrese el presupuesto.",
+                    min: "El presupuesto debe ser mayor a 0."
+                },
+                estado: {
+                    required: "Por favor, seleccione el estado del proyecto."
+                }
+            },
+            errorElement: "div",
+            errorPlacement: function(error, element) {
+                error.addClass("text-danger");
+                error.insertAfter(element);
+            }
+        });
+
+        // Validación personalizada para la fecha de fin
+        $.validator.addMethod("greaterThan", function(value, element, param) {
+            var startDate = $(param).val();
+            return this.optional(element) || new Date(value) > new Date(startDate);
+        });
+    });
+</script>
+
+{% endblock %}

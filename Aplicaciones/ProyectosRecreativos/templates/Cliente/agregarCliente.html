@@ -1,0 +1,145 @@
+{% extends "plantilla.html" %}
+{% block contenido %}
+<div class="back_re">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title">
+                <h2>Agregar Cliente </h2>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="container mt-5" >
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="form-cliente"  action="{% url 'guardarCliente' %}" method="POST" class="p-4 border rounded bg-light" >
+                {% csrf_token %}
+
+                <!-- Cédula -->
+                <div class="mb-3">
+                    <label for="cedula" class="form-label"><b>Cédula:</b></label>
+                    <input type="text" class="form-control" id="cedula" name="cedula" maxlength="10" pattern="\d{10}"  required>
+                </div>
+
+                <!-- Nombre -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label"><b>Nombre:</b></label>
+                    <input type="text" class="form-control" id="nombre" name="nombre"  required>
+                </div>
+
+                <!-- Apellido -->
+                <div class="mb-3">
+                    <label for="apellido" class="form-label"><b>Apellido:</b></label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" required>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="mb-3">
+                    <label for="telefono" class="form-label"><b>Teléfono:</b></label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="15" required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label"><b>Correo Electrónico:</b></label>
+                    <input type="email" class="form-control" id="email" name="email"  required>
+                </div>
+
+                <!-- Dirección -->
+                <div class="mb-3">
+                    <label for="direccion" class="form-label"><b>Dirección:</b></label>
+                    <textarea class="form-control" id="direccion" name="direccion" rows="3" ></textarea>
+                </div>
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success btn-lg mx-2">Guardar</button>
+                    <button type="button" class="btn btn-danger btn-lg mx-2" onclick="window.location.href='{% url 'listado_cliente' %}'">Cancelar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $("#form-cliente").validate({
+            rules: {
+                cedula: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                nombre: {
+                    required: true,
+                    minlength: 3,
+                    soloLetras: true
+                },
+                apellido: {
+                    required: true,
+                    minlength: 3,
+                    soloLetras: true
+                },
+                telefono: {
+                    required: true,
+                    digits: true,
+                    minlength: 7,
+                    maxlength: 15
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                direccion: {
+                    required: true,
+                    minlength: 5
+                }
+            },
+            messages: {
+                cedula: {
+                    required: "Por favor, ingrese la cédula.",
+                    digits: "Solo se permiten números.",
+                    minlength: "La cédula debe tener 10 dígitos.",
+                    maxlength: "La cédula debe tener 10 dígitos."
+                },
+                nombre: {
+                    required: "Por favor, ingrese el nombre.",
+                    minlength: "El nombre debe tener al menos 3 caracteres."
+                },
+                apellido: {
+                    required: "Por favor, ingrese el apellido.",
+                    minlength: "El apellido debe tener al menos 3 caracteres."
+                },
+                telefono: {
+                    required: "Por favor, ingrese el número de teléfono.",
+                    digits: "Solo se permiten números.",
+                    minlength: "El teléfono debe tener al menos 7 dígitos.",
+                    maxlength: "El teléfono no debe exceder 15 dígitos."
+                },
+                email: {
+                    required: "Por favor, ingrese el correo electrónico.",
+                    email: "Ingrese un correo válido."
+                },
+                direccion: {
+                    required: "Por favor, ingrese la dirección.",
+                    minlength: "La dirección debe tener al menos 5 caracteres."
+                }
+            },
+            errorElement: "div",
+            errorPlacement: function(error, element) {
+                error.addClass("text-danger");
+                error.insertAfter(element);
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
